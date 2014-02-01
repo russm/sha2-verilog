@@ -50,3 +50,18 @@ begin
 end
 
 endmodule
+
+module sha512_H_0(
+	output [31:0] H1_0, H2_0, H3_0, H4_0, H5_0, H6_0, H7_0, H8_0
+	);
+
+assign H1_0 = 64'h6A09E667F3BCC908;
+assign H2_0 = 64'hBB67AE8584CAA73B;
+assign H3_0 = 64'h3C6EF372FE94F82B;
+assign H4_0 = 64'hA54FF53A5F1D36F1;
+assign H5_0 = 64'h510E527FADE682D1;
+assign H6_0 = 64'h9B05688C2B3E6C1F;
+assign H7_0 = 64'h1F83D9ABFB41BD6B;
+assign H8_0 = 64'h5BE0CD19137E2179;
+
+endmodule

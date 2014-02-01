@@ -50,3 +50,18 @@ begin
 end
 
 endmodule
+
+module sha256_H_0(
+	output [31:0] H1_0, H2_0, H3_0, H4_0, H5_0, H6_0, H7_0, H8_0
+	);
+
+assign H1_0 = 32'h6A09E667;
+assign H2_0 = 32'hBB67AE85;
+assign H3_0 = 32'h3C6EF372;
+assign H4_0 = 32'hA54FF53A;
+assign H5_0 = 32'h510E527F;
+assign H6_0 = 32'h9B05688C;
+assign H7_0 = 32'h1F83D9AB;
+assign H8_0 = 32'h5BE0CD19;
+
+endmodule
