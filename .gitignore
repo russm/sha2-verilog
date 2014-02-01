@@ -1,6 +1,9 @@
 # editor swap files
 .*.swp
 
+# extracted test vectors
+/doc/vectors/
+
 # icarus products
 a.out
 *.vvp
