@@ -33,3 +33,20 @@ module sha256_s1 (
 assign s1 = ({x[16:0], x[31:17]} ^ {x[18:0], x[31:19]} ^ {x[9:0], x[31:10]});
 
 endmodule
+
+module sha256_Krom (
+	input clk,
+	input [5:0] round,
+	output reg [31:0] K
+	);
+
+reg [31:0] rom [63:0];
+
+initial $readmemh("sha256_K.rom", rom);
+
+always @(posedge clk)
+begin
+  K <= rom[round];
+end
+
+endmodule

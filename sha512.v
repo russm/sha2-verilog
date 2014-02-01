@@ -33,3 +33,20 @@ module sha512_s1 (
 assign s1 = ({x[18:0], x[63:19]} ^ {x[60:0], x[63:61]} ^ {x[5:0], x[63:6]});
 
 endmodule
+
+module sha512_Krom (
+	input clk,
+	input [6:0] round,
+	output reg [63:0] K
+	);
+
+reg [63:0] rom [79:0];
+
+initial $readmemh("sha512_K.rom", rom);
+
+always @(posedge clk)
+begin
+  K <= rom[round];
+end
+
+endmodule

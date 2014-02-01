@@ -1,29 +1,19 @@
 module testbed;
 
-wire [31:0] x = 32'hF000;
-wire [31:0] y = 32'hFF00;
-wire [31:0] z = 32'h00F0;
+wire [31:0] K256;
+wire [63:0] K512;
 
-wire [31:0] ch, maj;
-
-Ch #(.WORDSIZE(32)) Ch (
-	.x(x),
-	.y(y),
-	.z(z),
-	.Ch(ch)
+sha256_Krom sha256_Krom (
+	.clk(clk),
+	.round(ticks[5:0]),
+	.K(K256)
 );
 
-Maj #(.WORDSIZE(32)) Maj (
-	.x(x),
-	.y(y),
-	.z(z),
-	.Maj(maj)
+sha512_Krom sha512_Krom (
+	.clk(clk),
+	.round(ticks[6:0]),
+	.K(K512)
 );
-
-initial begin
-  tick;
-  $display("Ch=%h\nMaj=%h", ch, maj);
-end
 
 // driver
 
@@ -53,7 +43,7 @@ endtask
 
 task dumpstate;
 begin
-  $display("ticks=%h", ticks);
+  $display("ticks=%h K256=%h K512=%h", ticks, K256, K512);
 end
 endtask
 
