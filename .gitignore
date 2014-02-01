@@ -1,0 +1,7 @@
+# editor swap files
+.*.swp
+
+# icarus products
+a.out
+*.vvp
+dump.lx2
