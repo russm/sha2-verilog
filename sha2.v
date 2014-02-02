@@ -8,8 +8,8 @@ module sha2_round #(
 	output [WORDSIZE-1:0] a_out, b_out, c_out, d_out, e_out, f_out, g_out, h_out
 	);
 
-wire T1 = h_in + S1_e + Ch_e_f_g + Kj + Wj;
-wire T2 = S0_a + Maj_a_b_c;
+wire [WORDSIZE-1:0] T1 = h_in + S1_e + Ch_e_f_g + Kj + Wj;
+wire [WORDSIZE-1:0] T2 = S0_a + Maj_a_b_c;
 
 assign a_out = T1 + T2;
 assign b_out = a_in;
