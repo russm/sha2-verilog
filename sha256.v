@@ -1,3 +1,4 @@
+// round compression function
 module sha256_round (
 	input [31:0] Kj, Wj,
 	input [31:0] a_in, b_in, c_in, d_in, e_in, f_in, g_in, h_in,
@@ -34,8 +35,7 @@ sha2_round #(.WORDSIZE(32)) sha256_round_inner (
 endmodule
 
 
-// internals
-
+// Σ₀(x)
 module sha256_S0 (
 	input wire [31:0] x,
 	output wire [31:0] S0
@@ -45,6 +45,8 @@ assign S0 = ({x[1:0], x[31:2]} ^ {x[12:0], x[31:13]} ^ {x[21:0], x[31:22]});
 
 endmodule
 
+
+// Σ₁(x)
 module sha256_S1 (
 	input wire [31:0] x,
 	output wire [31:0] S1
@@ -54,6 +56,8 @@ assign S1 = ({x[5:0], x[31:6]} ^ {x[10:0], x[31:11]} ^ {x[24:0], x[31:25]});
 
 endmodule
 
+
+// σ₀(x)
 module sha256_s0 (
 	input wire [31:0] x,
 	output wire [31:0] s0
@@ -63,6 +67,8 @@ assign s0 = ({x[6:0], x[31:7]} ^ {x[17:0], x[31:18]} ^ {x[2:0], x[31:3]});
 
 endmodule
 
+
+// σ₁(x)
 module sha256_s1 (
 	input wire [31:0] x,
 	output wire [31:0] s1
@@ -72,6 +78,8 @@ assign s1 = ({x[16:0], x[31:17]} ^ {x[18:0], x[31:19]} ^ {x[9:0], x[31:10]});
 
 endmodule
 
+
+// round constants
 module sha256_Krom (
 	input clk,
 	input [5:0] round,
@@ -89,6 +97,8 @@ end
 
 endmodule
 
+
+// initial hash values
 module sha256_H_0(
 	output [31:0] H1_0, H2_0, H3_0, H4_0, H5_0, H6_0, H7_0, H8_0
 	);

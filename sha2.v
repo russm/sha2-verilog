@@ -1,3 +1,4 @@
+// generalised round compression function
 module sha2_round #(
 	parameter WORDSIZE=0
 ) (
@@ -22,6 +23,7 @@ assign h_out = g_in;
 endmodule
 
 
+// Ch(x,y,z)
 module Ch #(parameter WORDSIZE=0) (
 	input wire [WORDSIZE-1:0] x, y, z,
 	output wire [WORDSIZE-1:0] Ch
@@ -32,6 +34,7 @@ assign Ch = ((x & y) ^ (~x & z));
 endmodule
 
 
+// Maj(x,y,z)
 module Maj #(parameter WORDSIZE=0) (
 	input wire [WORDSIZE-1:0] x, y, z,
 	output wire [WORDSIZE-1:0] Maj
