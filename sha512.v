@@ -1,3 +1,30 @@
+// block processor
+// NB: master *must* continue to assert H_in until we have signaled output_valid
+module sha512_block (
+    input clk, rst,
+    input [511:0] H_in,
+    input [1023:0] M_in,
+    input input_valid,
+    output [511:0] H_out,
+    output output_valid
+    );
+
+wire [63:0] W_tm2, W_tm15, s1_Wtm2, s0_Wtm15, Wt;
+
+sha512_s0 sha512_s0 (.x(W_tm15), .s0(s0_Wtm15));
+sha512_s1 sha512_s1 (.x(W_tm2), .s1(s1_Wtm2));
+
+W_machine #(.WORDSIZE(64)) W_machine (
+    .clk(clk),
+    .M(M_in), .M_valid(input_valid),
+    .W_tm2(W_tm2), .W_tm15(W_tm15),
+    .s1_Wtm2(s1_Wtm2), .s0_Wtm15(s0_Wtm15),
+    .Wt(Wt)
+);
+
+endmodule
+
+
 // round compression function
 module sha512_round (
     input [63:0] Kj, Wj,

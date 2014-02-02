@@ -1,3 +1,30 @@
+// block processor
+// NB: master *must* continue to assert H_in until we have signaled output_valid
+module sha256_block (
+    input clk, rst,
+    input [255:0] H_in,
+    input [511:0] M_in,
+    input input_valid,
+    output [255:0] H_out,
+    output output_valid
+    );
+
+wire [31:0] W_tm2, W_tm15, s1_Wtm2, s0_Wtm15, Wt;
+
+sha256_s0 sha256_s0 (.x(W_tm15), .s0(s0_Wtm15));
+sha256_s1 sha256_s1 (.x(W_tm2), .s1(s1_Wtm2));
+
+W_machine #(.WORDSIZE(32)) W_machine (
+    .clk(clk),
+    .M(M_in), .M_valid(input_valid),
+    .W_tm2(W_tm2), .W_tm15(W_tm15),
+    .s1_Wtm2(s1_Wtm2), .s0_Wtm15(s0_Wtm15),
+    .Wt(Wt)
+);
+
+endmodule
+
+
 // round compression function
 module sha256_round (
     input [31:0] Kj, Wj,
