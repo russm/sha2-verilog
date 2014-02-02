@@ -1,19 +1,5 @@
 module testbed;
 
-wire [31:0] K256;
-wire [63:0] K512;
-
-sha256_Krom sha256_Krom (
-	.clk(clk),
-	.round(ticks[5:0]),
-	.K(K256)
-);
-
-sha512_Krom sha512_Krom (
-	.clk(clk),
-	.round(ticks[6:0]),
-	.K(K512)
-);
 
 // driver
 
@@ -43,7 +29,7 @@ endtask
 
 task dumpstate;
 begin
-  $display("ticks=%h K256=%h K512=%h", ticks, K256, K512);
+  $display("ticks=%h", ticks);
 end
 endtask
 
