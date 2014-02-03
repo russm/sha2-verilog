@@ -1,5 +1,6 @@
 module testbed;
 
+reg input_valid = 0;
 
 
 // the "abc" test vector, padded
