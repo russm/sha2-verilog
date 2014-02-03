@@ -2,13 +2,13 @@ module testbed;
 
 reg input_valid = 0;
 wire output_valid;
-wire [255:0] H_0, H_out;
+wire [511:0] H_0, H_out;
 
-sha256_H_0 sha256_H_0 (.H_0(H_0));
+sha512_H_0 sha512_H_0 (.H_0(H_0));
 
-sha256_block sha256_block (
+sha512_block sha512_block (
     .clk(clk), .rst(rst),
-    .H_in(H_0), .M_in(M_sha256_abc),
+    .H_in(H_0), .M_in(M_sha512_abc),
     .input_valid(input_valid),
     .H_out(H_out),
     .output_valid(output_valid)
@@ -62,7 +62,7 @@ initial begin
   input_valid = 1'b1;
   tick;
   input_valid = 1'b0;
-  repeat (256) begin
+  repeat (90) begin
     tick;
   end
   $display("done");
