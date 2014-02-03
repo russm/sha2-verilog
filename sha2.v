@@ -52,7 +52,7 @@ module W_machine #(parameter WORDSIZE=1) (
     input M_valid,
     output [WORDSIZE-1:0] W_tm2, W_tm15,
     input [WORDSIZE-1:0] s1_Wtm2, s0_Wtm15,
-    output [WORDSIZE-1:0] Wt
+    output [WORDSIZE-1:0] W
     );
 
 // W(t-n) values, from the perspective of Wt_next
@@ -65,7 +65,7 @@ wire [WORDSIZE-1:0] Wt_next = s1_Wtm2 + W_tm7 + s0_Wtm15 + W_tm16;
 
 reg [WORDSIZE*16-1:0] W_stack_q;
 wire [WORDSIZE*16-1:0] W_stack_d = {W_stack_q[WORDSIZE*15-1:0], Wt_next};
-assign Wt = W_stack_q[WORDSIZE*16-1:WORDSIZE*15];
+assign W = W_stack_q[WORDSIZE*16-1:WORDSIZE*15];
 
 always @(posedge clk)
 begin

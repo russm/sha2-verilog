@@ -9,7 +9,7 @@ module sha512_block (
     output output_valid
     );
 
-wire [63:0] W_tm2, W_tm15, s1_Wtm2, s0_Wtm15, Wt;
+wire [63:0] W_tm2, W_tm15, s1_Wtm2, s0_Wtm15, Wj, Kj;
 
 sha512_s0 sha512_s0 (.x(W_tm15), .s0(s0_Wtm15));
 sha512_s1 sha512_s1 (.x(W_tm2), .s1(s1_Wtm2));
@@ -19,8 +19,14 @@ W_machine #(.WORDSIZE(64)) W_machine (
     .M(M_in), .M_valid(input_valid),
     .W_tm2(W_tm2), .W_tm15(W_tm15),
     .s1_Wtm2(s1_Wtm2), .s0_Wtm15(s0_Wtm15),
-    .Wt(Wt)
+    .W(Wj)
 );
+
+sha512_K_machine sha512_K_machine (
+    .clk(clk), .rst(input_valid), .K(Kj)
+);
+
+assign H_out[191:0] = {input_valid, 31'h0, Wj, 32'h0, Kj };
 
 endmodule
 
