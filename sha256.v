@@ -26,8 +26,6 @@ sha256_K_machine sha256_K_machine (
     .clk(clk), .rst(input_valid), .K(Kj)
 );
 
-assign H_out[127:0] = {input_valid, 31'h0, Wj, 32'h0, Kj };
-
 endmodule
 
 
