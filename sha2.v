@@ -64,7 +64,7 @@ wire [WORDSIZE-1:0] W_tm16 = W_stack_q[WORDSIZE*16-1:WORDSIZE*15];
 wire [WORDSIZE-1:0] Wt_next = s1_Wtm2 + W_tm7 + s0_Wtm15 + W_tm16;
 
 reg [WORDSIZE*16-1:0] W_stack_q;
-wire [WORDSIZE*15-1:0] W_stack_d = {W_stack_q[WORDSIZE*15-1:0], Wt_next};
+wire [WORDSIZE*16-1:0] W_stack_d = {W_stack_q[WORDSIZE*15-1:0], Wt_next};
 assign Wt = W_stack_q[WORDSIZE*16-1:WORDSIZE*15];
 
 always @(posedge clk)
