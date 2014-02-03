@@ -13,6 +13,7 @@ wire [63:0] a_in = H_in[511:448], b_in = H_in[447:384], c_in = H_in[383:320], d_
 wire [63:0] e_in = H_in[255:192], f_in = H_in[191:128], g_in = H_in[127:64], h_in = H_in[63:0];
 reg [63:0] a_q, b_q, c_q, d_q, e_q, f_q, g_q, h_q;
 wire [63:0] a_d, b_d, c_d, d_d, e_d, f_d, g_d, h_d;
+wire [63:0] W_tm2, W_tm15, s1_Wtm2, s0_Wtm15, Wj, Kj;
 assign H_out = {
     a_in + a_q, b_in + b_q, c_in + c_q, d_in + d_q, e_in + e_q, f_in + f_q, g_in + g_q, h_in + h_q
 };
@@ -35,8 +36,6 @@ sha512_round sha512_round (
     .a_out(a_d), .b_out(b_d), .c_out(c_d), .d_out(d_d),
     .e_out(e_d), .f_out(f_d), .g_out(g_d), .h_out(h_d)
 );
-
-wire [63:0] W_tm2, W_tm15, s1_Wtm2, s0_Wtm15, Wj, Kj;
 
 sha512_s0 sha512_s0 (.x(W_tm15), .s0(s0_Wtm15));
 sha512_s1 sha512_s1 (.x(W_tm2), .s1(s1_Wtm2));
