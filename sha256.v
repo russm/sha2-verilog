@@ -19,7 +19,6 @@ assign H_out = {
 
 always @(posedge clk)
 begin
-    $display("a:%h b:%h c:%h d:%h e:%h f:%h g:%h h:%h", a_q, b_q, c_q, d_q, e_q, f_q, g_q, h_q);
     if (input_valid) begin
         a_q <= a_in; b_q <= b_in; c_q <= c_in; d_q <= d_in;
         e_q <= e_in; f_q <= f_in; g_q <= g_in; h_q <= h_in;
@@ -122,7 +121,7 @@ module sha256_s0 (
     output wire [31:0] s0
     );
 
-assign s0 = ({x[6:0], x[31:7]} ^ {x[17:0], x[31:18]} ^ {x[2:0], x[31:3]});
+assign s0 = ({x[6:0], x[31:7]} ^ {x[17:0], x[31:18]} ^ (x >> 3));
 
 endmodule
 
@@ -133,7 +132,7 @@ module sha256_s1 (
     output wire [31:0] s1
     );
 
-assign s1 = ({x[16:0], x[31:17]} ^ {x[18:0], x[31:19]} ^ {x[9:0], x[31:10]});
+assign s1 = ({x[16:0], x[31:17]} ^ {x[18:0], x[31:19]} ^ (x >> 10));
 
 endmodule
 

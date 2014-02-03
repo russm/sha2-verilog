@@ -121,7 +121,7 @@ module sha512_s0 (
     output wire [63:0] s0
     );
 
-assign s0 = ({x[0:0], x[63:1]} ^ {x[7:0], x[63:8]} ^ {x[6:0], x[63:7]});
+assign s0 = ({x[0:0], x[63:1]} ^ {x[7:0], x[63:8]} ^ (x >> 7));
 
 endmodule
 
@@ -132,7 +132,7 @@ module sha512_s1 (
     output wire [63:0] s1
     );
 
-assign s1 = ({x[18:0], x[63:19]} ^ {x[60:0], x[63:61]} ^ {x[5:0], x[63:6]});
+assign s1 = ({x[18:0], x[63:19]} ^ {x[60:0], x[63:61]} ^ (x >> 6));
 
 endmodule
 
