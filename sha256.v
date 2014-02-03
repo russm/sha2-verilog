@@ -17,6 +17,18 @@ assign H_out = {
     a_in + a_q, b_in + b_q, c_in + c_q, d_in + d_q, e_in + e_q, f_in + f_q, g_in + g_q, h_in + h_q
 };
 
+always @(posedge clk)
+begin
+    $display("a:%h b:%h c:%h d:%h e:%h f:%h g:%h h:%h", a_q, b_q, c_q, d_q, e_q, f_q, g_q, h_q);
+    if (input_valid) begin
+        a_q <= a_in; b_q <= b_in; c_q <= c_in; d_q <= d_in;
+        e_q <= e_in; f_q <= f_in; g_q <= g_in; h_q <= h_in;
+    end else begin
+        a_q <= a_d; b_q <= b_d; c_q <= c_d; d_q <= d_d;
+        e_q <= e_d; f_q <= f_d; g_q <= g_d; h_q <= h_d;
+    end
+end
+
 sha256_round sha256_round (
     .Kj(Kj), .Wj(Wj),
     .a_in(a_q), .b_in(b_q), .c_in(c_q), .d_in(d_q),

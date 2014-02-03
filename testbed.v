@@ -1,6 +1,18 @@
 module testbed;
 
 reg input_valid = 0;
+wire output_valid;
+wire [255:0] H_0, H_out;
+
+sha256_H_0 sha256_H_0 (.H_0(H_0));
+
+sha256_block sha256_block (
+    .clk(clk), .rst(rst),
+    .H_in(H_0), .M_in(M_sha256_abc),
+    .input_valid(input_valid),
+    .H_out(H_out),
+    .output_valid(output_valid)
+);
 
 
 // the "abc" test vector, padded
@@ -70,7 +82,7 @@ endtask
 
 task dumpstate;
 begin
-  $display("ticks=%h", ticks);
+  $display("ticks=%h H=%h", ticks, H_out);
 end
 endtask
 
