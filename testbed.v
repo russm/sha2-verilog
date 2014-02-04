@@ -1,17 +1,27 @@
 module testbed;
 
 reg input_valid = 0;
-wire output_valid;
-wire [511:0] H_0, H_out;
 
-sha512_H_0 sha512_H_0 (.H_0(H_0));
+wire output_valid_256;
+wire [255:0] H_0_256, H_out_256;
+sha256_H_0 sha256_H_0 (.H_0(H_0_256));
+sha256_block sha256_block (
+    .clk(clk), .rst(rst),
+    .H_in(H_0_256), .M_in(M_sha256_abc),
+    .input_valid(input_valid),
+    .H_out(H_out_256),
+    .output_valid(output_valid_256)
+);
 
+wire output_valid_512;
+wire [511:0] H_0_512, H_out_512;
+sha512_H_0 sha512_H_0 (.H_0(H_0_512));
 sha512_block sha512_block (
     .clk(clk), .rst(rst),
-    .H_in(H_0), .M_in(M_sha512_abc),
+    .H_in(H_0_512), .M_in(M_sha512_abc),
     .input_valid(input_valid),
-    .H_out(H_out),
-    .output_valid(output_valid)
+    .H_out(H_out_512),
+    .output_valid(output_valid_512)
 );
 
 
@@ -82,7 +92,9 @@ endtask
 
 task dumpstate;
 begin
-  $display("ticks=%h H=%h", ticks, H_out);
+  $display("%b %d %h", input_valid, ticks, ticks);
+  $display("%b %h", output_valid_256, H_out_256);
+  $display("%b %h", output_valid_512, H_out_512);
 end
 endtask
 
