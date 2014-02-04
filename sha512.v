@@ -9,6 +9,7 @@ module sha512_block (
     output output_valid
     );
 
+reg [6:0] round;
 wire [63:0] a_in = H_in[511:448], b_in = H_in[447:384], c_in = H_in[383:320], d_in = H_in[319:256];
 wire [63:0] e_in = H_in[255:192], f_in = H_in[191:128], g_in = H_in[127:64], h_in = H_in[63:0];
 reg [63:0] a_q, b_q, c_q, d_q, e_q, f_q, g_q, h_q;
@@ -17,15 +18,18 @@ wire [63:0] W_tm2, W_tm15, s1_Wtm2, s0_Wtm15, Wj, Kj;
 assign H_out = {
     a_in + a_q, b_in + b_q, c_in + c_q, d_in + d_q, e_in + e_q, f_in + f_q, g_in + g_q, h_in + h_q
 };
+assign output_valid = round == 80;
 
 always @(posedge clk)
 begin
     if (input_valid) begin
         a_q <= a_in; b_q <= b_in; c_q <= c_in; d_q <= d_in;
         e_q <= e_in; f_q <= f_in; g_q <= g_in; h_q <= h_in;
+        round <= 0;
     end else begin
         a_q <= a_d; b_q <= b_d; c_q <= c_d; d_q <= d_d;
         e_q <= e_d; f_q <= f_d; g_q <= g_d; h_q <= h_d;
+        round <= round + 1;
     end
 end
 
